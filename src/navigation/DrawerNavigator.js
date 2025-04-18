@@ -1,8 +1,6 @@
-// navigation/DrawerNavigator.js
 import React, { useState } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { TopNavigation, TopNavigationAction, Icon, Layout } from '@ui-kitten/components';
+import { TopNavigation, TopNavigationAction, Icon } from '@ui-kitten/components';
 
 import Home from '../screens/Home';
 import DeudasScreen from '../screens/DeudasScreen';
@@ -11,19 +9,34 @@ import CuentasStack from '../screens/Cuentas/navigation/CuentasNavigation';
 import CustomDrawerContent from '../components/CustomDraweContent';
 import BottomTabs from '../components/BottomTabs';
 import { SafeAreaLayout } from '../components/SafeAreaLayout';
+import { useEffect } from 'react';
+import { useNavigationState, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 
 const MenuIcon = (props) => <Icon {...props} name="menu-outline" />;
 
-export default function DrawerNavigator({ onLogout, navigation }) {
+const getActiveRouteName = (route) => {
+  if (!route) return null;
+  if (route.state) {
+    return getActiveRouteName(route.state.routes[route.state.index]);
+  }
+  return route.name;
+};
+
+
+export default function DrawerNavigator({ onLogout }) {
   const [title, setTitle] = useState('Inicio');
 
-  const handleRouteChange = (route) => {
-    const routeName = getFocusedRouteNameFromRoute(route) ?? route.name;
+  const currentRouteName = useNavigationState((state) => {
+    const route = state.routes[state.index];
+    return getActiveRouteName(route);
+  });
+  
 
-    switch (routeName) {
-      case 'CuentasScreen':
+  useEffect(() => {
+    switch (currentRouteName) {
+      case 'Cuentas':
         setTitle('Cuentas');
         break;
       case 'NuevaCuenta':
@@ -38,7 +51,7 @@ export default function DrawerNavigator({ onLogout, navigation }) {
       default:
         setTitle('Inicio');
     }
-  };
+  }, [currentRouteName]);
 
   const renderTopNavigation = (navigation) => (
     <TopNavigation
@@ -53,12 +66,9 @@ export default function DrawerNavigator({ onLogout, navigation }) {
   return (
     <SafeAreaLayout>
       <Drawer.Navigator
-        screenOptions={({ route, navigation }) => {
-          handleRouteChange(route);
-          return {
-            header: () => renderTopNavigation(navigation),
-          };
-        }}
+        screenOptions={({ route, navigation }) => ({          
+          header: () => renderTopNavigation(navigation),
+        })}
         drawerContent={(props) => <CustomDrawerContent {...props} onLogout={onLogout} />}
       >
         <Drawer.Screen name="Inicio" component={BottomTabs} />
