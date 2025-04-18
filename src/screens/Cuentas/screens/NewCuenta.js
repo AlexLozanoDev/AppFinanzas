@@ -170,8 +170,6 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 15,
-    borderColor: '#fff',
-    backgroundColor: '#fff'
   },
   containerButtons: {
     flexDirection: 'row',
