@@ -1,24 +1,20 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
-import DeudasScreen from '../screens/DeudasScreen';
-import InversionesScreen from '../screens/InversionesScreen';
-import PrestamosScreen from '../screens/PrestamosScreen';
-import TabNavigator from './TabNavigator';
 import Home from '../screens/Home';
-import CuentasScreen from '../screens/CuentasScreen';
-
+import CustomDrawerContent from '../components/CustomDraweContent';
 
 const Drawer = createDrawerNavigator();
 
-const DrawerNavigator = () => {
+const DrawerNavigator = ({onLogout}) => {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Inicio" component={TabNavigator} />
-      <Drawer.Screen name='Cuentas' component={CuentasScreen} />
-      <Drawer.Screen name="Préstamos" component={PrestamosScreen} />
-      <Drawer.Screen name="Deuda" component={DeudasScreen} />
-      <Drawer.Screen name="Inversiones" component={InversionesScreen} />
+    <Drawer.Navigator
+      drawerContent={(drawerProps) => (
+        <CustomDrawerContent {...drawerProps} onLogout={onLogout} />
+      )}
+      drawerPosition="right"
+      screenOptions={{ headerShown: true }}
+    >
+      <Drawer.Screen name="Inicio" component={Home} />
     </Drawer.Navigator>
   );
 };
