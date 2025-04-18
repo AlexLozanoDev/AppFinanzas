@@ -19,10 +19,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.alexlozano.Monedero"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6f45f74e-70cd-44d7-9d94-8f9958e0bd9b"
+      }
+    },
+    "owner": "alexlozano"
   }
 }

@@ -1,19 +1,23 @@
+import 'react-native-reanimated';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
-import { EvaIconsPack } from '@eva-design/eva';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { SafeAreaView } from 'react-native';
-import AppNavigator from './src/navigation/AppNavigator';
+import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import DrawerNavigator from './src/navigation/DrawerNavigator';
 
 export default function App() {
   return (
     <>
-      {/* <IconRegistry icons={EvaIconsPack} /> */}
+      <IconRegistry icons={EvaIconsPack}/>
       <ApplicationProvider {...eva} theme={eva.light}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <AppNavigator />
-        </SafeAreaView>
+        <NavigationContainer>
+          <SafeAreaView style={{ flex: 1 }}>
+            <DrawerNavigator />
+          </SafeAreaView>
+        </NavigationContainer>
       </ApplicationProvider>
     </>
   );
