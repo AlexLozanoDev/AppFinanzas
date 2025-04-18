@@ -14,14 +14,14 @@ const LoginScreen = ({ onLoginSuccess }) => {
     setError('');
 
     try {
-      // Lógica para autenticarte con tu API
+      // Lógica para autenticar con la Api
       const response = await fetch('https://sunlit-mix-416216.uc.r.appspot.com/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: username,      // O simplemente: username,
+          username: username,
           password: password
         }),
       });

@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from '@ui-kitten/components';
 
 import RegistrosScreen from '../screens/RegistrosScreen';
-import CuentasScreen from '../screens/CuentasScreen';
+import CuentasScreen from '../screens/Cuentas/screens/CuentasScreen';
 import Home from '../screens/Home';
 
 const Tab = createBottomTabNavigator();

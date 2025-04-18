@@ -5,18 +5,26 @@ import LoginScreen from "../screens/LoginScreen";
 
 const Stack = createNativeStackNavigator();
 
+const AuthenticatedStack = ({ onLogout }) => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Drawer">
+      {(props) => <DrawerNavigator {...props} onLogout={onLogout} />}
+    </Stack.Screen>
+  </Stack.Navigator>
+);
+
+const UnauthenticatedStack = ({ onLoginSuccess }) => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Login">
+      {(props) => <LoginScreen {...props} onLoginSuccess={onLoginSuccess} />}
+    </Stack.Screen>
+  </Stack.Navigator>
+);
+
 export default function AppNavigator({ isAuthenticated, onLoginSuccess, onLogout }) {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {isAuthenticated ? (
-        <Stack.Screen name="Drawer">
-          {(props) => <DrawerNavigator {...props} onLogout={onLogout} />}
-        </Stack.Screen>
-      ) : (
-        <Stack.Screen name="Login">
-          {(props) => <LoginScreen {...props} onLoginSuccess={onLoginSuccess} />}
-        </Stack.Screen>
-      )}
-    </Stack.Navigator>
+  return isAuthenticated ? (
+    <AuthenticatedStack onLogout={onLogout} />
+  ) : (
+    <UnauthenticatedStack onLoginSuccess={onLoginSuccess} />
   );
 }

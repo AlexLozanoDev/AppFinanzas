@@ -1,4 +1,3 @@
-// src/services/api.js
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BASE_URL = 'https://sunlit-mix-416216.uc.r.appspot.com/api';
